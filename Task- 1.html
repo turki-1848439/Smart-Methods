@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <style>
+        #center {
+            text-align: center;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="center">
+        <button id="START" type="button">START!</button>
+        <button id="STOP" type="button">STOP!</button>
+        <p id="">click start and start talking arabic!</p>
+        <textarea name="" id="demo" cols="30" rows="10"></textarea>
+    </div>
+</body>
+<script>
+    var buttonstart = document.getElementById("START")
+    var buttonstop = document.getElementById("STOP");
+    var result = document.getElementById("demo");
+
+
+    var speechRecognition = speechRecognition || webkitSpeechRecognition;
+    var speech = new speechRecognition();
+
+    speech.lang = 'ar';
+
+
+    buttonstart.onclick = function () {
+        speech.start();
+    };
+    speech.onstart = function () {
+        console.log("We are listening. Try speaking into the microphone.");
+    };
+
+
+    buttonstop.onclick = function () {
+        speech.stop();
+    };
+    speech.onspeechend = function () {
+        buttonstop.click();
+    }
+    speech.onresult = function (event) {
+        var transcript = event.results[0][0].transcript;
+        result.value = transcript;
+    };
+
+
+
+
+
+</script>
+
+</html>
